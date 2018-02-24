@@ -1,13 +1,4 @@
-[{
-    id: '12341',
-    name: 'Andrew',
-    room: 'The Office Fans'
-}]
 
-//addUser(id, name, room)
-//removeUser(id)
-//getUser(id)
-//getUserList(room)
 
 class Users{
     constructor(){
@@ -34,19 +25,12 @@ class Users{
 
         return namesArray
     }
+    isUniqueUser(room, name){
+        var userList = this.getUserList(room);        
+        var userFound = userList.filter((user) => user === name)[0];     
+        console.log(userFound);   
+        return userFound == undefined ? true : false;
+    }
 }
 
 module.exports = {Users};
-// class Person {
-//     constructor(name, age) {
-//         this.name = name;
-//         this.age = age;
-//     }
-//     getUserDescription(){
-//         return `${this.name} is ${this.name} year(s) old.`;
-//     }
-// }
-
-// var me = new Person('Andrew', '25');
-// console.log('this.name', me.name);
-// console.log(me.getUserDescription());

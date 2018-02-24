@@ -17,13 +17,21 @@ app.use(express.static(publicPath));
 
 io.on('connection',(socket)=>{
     console.log('New user connected');
-
     
     socket.on('join', (params, callback) =>{
         if (!isRealString(params.name) || !isRealString(params.room)){
            return callback('Name and room name are required');
         }
+        
+        params.room = params.room.toLowerCase();
+        
+        var isUniqueUser = users.isUniqueUser(params.room, params.name);        
+        console.log(isUniqueUser);
+        if (!isUniqueUser) {  
+            return callback('This user name has already been taken. Please choose another');
+        }
 
+        
         socket.join(params.room);
         users.removeUser(socket.id);
         users.addUser(socket.id, params.name, params.room);
